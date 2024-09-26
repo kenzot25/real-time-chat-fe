@@ -17,9 +17,8 @@ import {
   IconLogout,
   IconUser,
 } from "@tabler/icons-react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { LOGOUT_USER } from "../../graphql/mutations/Logout";
-import { useGeneralStore } from "../../stores/generalStore";
 import { useUserStore } from "../../stores/userStore";
 
 const useStyles = createStyles((theme) => {
@@ -57,6 +56,7 @@ const useStyles = createStyles((theme) => {
 });
 
 interface NavbarLinkProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: React.FC<any>;
   label: string;
   active?: boolean;
@@ -84,9 +84,6 @@ function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
 const mockdata = [{ icon: IconBrandWechat, label: "Chatrooms" }];
 
 function Sidebar() {
-  const toggleProfileSettingsModal = useGeneralStore(
-    (state) => state.toggleProfileSettingsModal
-  );
   const navigate = useNavigate();
   const [active, setActive] = useState(0);
 
@@ -134,7 +131,9 @@ function Sidebar() {
             <NavbarLink
               icon={IconUser}
               label={"Profile(" + user.fullname + ")"}
-              onClick={toggleProfileSettingsModal}
+              onClick={() => {
+                navigate("/profile");
+              }}
             />
           )}
 

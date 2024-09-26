@@ -15,7 +15,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginUserMutation } from "../../gql/graphql";
 import { LOGIN_USER } from "../../graphql/mutations/Login";
-import { useGeneralStore } from "../../stores/generalStore";
 import { useUserStore } from "../../stores/userStore";
 
 const Login = () => {
@@ -57,12 +56,11 @@ const Login = () => {
         }
       },
     }).catch((err) => {
-      setErrors(err.graphQLErrors[0].extensions);
+      setErrors(err.graphQLErrors[0]?.extensions);
       if (err.graphQLErrors[0].extensions?.invalidCredentials)
         setInvalidCredentials(
           err.graphQLErrors[0].extensions.invalidCredentials
         );
-      useGeneralStore.setState({ isLoginModalOpen: true });
     });
   };
 

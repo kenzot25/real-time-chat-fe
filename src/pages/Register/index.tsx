@@ -71,7 +71,7 @@ const Register = () => {
       },
     }).catch((err) => {
       console.log(err.graphQLErrors, "ERROR");
-      setErrors(err.graphQLErrors[0].extensions);
+      setErrors(err.graphQLErrors[0]?.extensions);
     });
   };
 
